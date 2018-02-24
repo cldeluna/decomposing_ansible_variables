@@ -1,0 +1,35 @@
+---
+- hosts: local
+  connection: local
+
+  tasks:
+    - name: Gather Facts from localhost
+      setup:
+
+      # Save the output from the setup module into the variable output
+      register: output
+
+      # Use the debug module to print out the contents of the variable output
+    - debug: var=output
+
+      # Use the contents of the variable output in a message
+    - debug: msg="These are the contents of my variable output {{ output }}"
+
+    - name: Decomposing the ansible ouput
+      setup:
+      register: out
+      
+      # Start to decompose the data structure so that you can pluck out the 
+      # information you care about
+
+    # Display the ipv4 address information of each host
+    - debug: var=out.ansible_facts.ansible_all_ipv4_addresses
+
+    # Display the host distribution
+    - debug: var=out.ansible_facts.ansible_distribution_release
+    - debug: msg="Ansible control system is running on {{ out.ansible_facts.ansible_distribution_version}}"
+    # Display the ansible python executable path
+    - debug: var=out.ansible_facts.ansible_python.executable
+    # Display a message noting the python version using the specific variables returned from the setup module
+    - debug: msg="Ansible python version {{ out.ansible_facts.ansible_python.version.major }}.{{ out.ansible_facts.ansible_python.version.minor }}.{{ out.ansible_facts.ansible_python.version.micro }}"
+

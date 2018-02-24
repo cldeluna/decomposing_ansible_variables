@@ -1,0 +1,4 @@
+host, user, password, comment,
+1.1.1.1, claudia, mypassword, the first one
+1.1.1.2, elvira, epassword, the second one
+1.1.1.3, billy, bpassword, the third one# CSV File
